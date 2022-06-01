@@ -79,7 +79,7 @@ var url = "https://raw.githubusercontent.com/jelastic-jps/kubernetes/main/config
 resp.settings = toNative(new org.yaml.snakeyaml.Yaml().load(new com.hivext.api.core.utils.Transport().get(url)));
 var f = resp.settings.fields;
 
-if (!prod && dev) {
+if (prod && dev) {
     //f[2].values[1].disabled = true;
     f[1].items[0].disabled = true;
     f[2].hidden = false;
@@ -98,7 +98,7 @@ if (prod && !prodStorage){
     f[4]['default'] = false;
 }
 
-if (!prod && !dev) {
+if (prod && dev) {
     for (var i = 0, n = f.length; i < n; i++)
         if (f[i].type == "compositefield") {
             for (var j = 0, l = f[i].items.length; j < l; j++)  f[i].items[j].disabled = true;
